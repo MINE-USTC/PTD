@@ -1,0 +1,39 @@
+{
+  "ini_max_depth": 2,
+  "max_depth": 6,
+  "exclude_root": 1,
+  "node_config": {
+    "max_child_num": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "min_child_num": [
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "update_sub_nodes": false,
+    "default_max_child_num": 4,
+    "default_min_child_num": 4,
+    "ignore_exceed": false
+  },
+  "tree_config": {
+    "root_visible": false
+  },
+  "tree_update_method": "argmax"
+}

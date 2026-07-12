@@ -1,0 +1,11 @@
+transformers==4.54.0
+psutil
+datasets
+fschat
+openai
+anthropic
+torch
+accelerate
+posix_ipc
+loguru
+matplotlib
