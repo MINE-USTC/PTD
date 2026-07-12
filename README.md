@@ -1,9 +1,7 @@
 # Unlocking Parallelism in Autoregressive Language Models via Speculative Decoding with Progressive Tree Drafting
 
-**Anonymous Submission for Peer Review**
-
 This repository contains the implementation code for the paper "Unlocking Parallelism in Autoregressive Language Models
-via Speculative Decoding with Progressive Tree Drafting" submitted to IJCAI 2026.
+via Speculative Decoding with Progressive Tree Drafting" submitted to COLM 2026.
 
 ## Repository Structure
 
@@ -36,7 +34,7 @@ pip install -r requirements.txt
 
 - Python 3.9+
 - PyTorch 2.0+
-- Transformers 4.54.0
+- Transformers 4.54.0+
 - Additional dependencies listed in `requirements.txt`
 
 ### Hardware Requirements
