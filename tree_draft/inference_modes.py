@@ -87,7 +87,14 @@ def base_tree_draft(args, model, config: PTDConfig):
         sampled_questions[i:i + config.inference.batch_size]
         for i in range(0, len(sampled_questions), config.inference.batch_size)
     ]
-    get_model_answers(model, model.tokenizer, sampled_questions_batch, config.model.bench_name, **decode_kwargs)
+    get_model_answers(
+        model,
+        model.tokenizer,
+        sampled_questions_batch,
+        config.model.bench_name,
+        config.model.model_path,
+        **decode_kwargs,
+    )
     logger.info(args)
 
     if config.log.save_log:
@@ -126,7 +133,14 @@ def greedy_decoding(args, model, config: PTDConfig):
         sampled_questions[i:i + config.inference.batch_size]
         for i in range(0, len(sampled_questions), config.inference.batch_size)
     ]
-    get_model_answers(model, model.tokenizer, sampled_questions_batch, config.model.bench_name, **decode_kwargs)
+    get_model_answers(
+        model,
+        model.tokenizer,
+        sampled_questions_batch,
+        config.model.bench_name,
+        config.model.model_path,
+        **decode_kwargs,
+    )
     logger.info(args)
     logger.remove(logger_id)
 
@@ -136,10 +150,10 @@ def get_model_answers(
         tokenizer,
         sampled_questions_batch,
         bench_name,
+        model_path,
         **kwargs
 ):
     ds_local_rank = int(os.getenv('LOCAL_RANK', '0'))
-    model_id = 'llama-2-7b'
     profile = InferProfile()
 
     for batch_idx, questions in enumerate(sampled_questions_batch):
@@ -153,7 +167,7 @@ def get_model_answers(
             inputs_list = []
             for j, question in enumerate(questions):
                 if len(convs) < len(questions):
-                    conv = get_conversation_template(model_id)
+                    conv = get_conversation_template(model_path)
                     conv.append_message(conv.roles[0], question[turn])
                     conv.append_message(conv.roles[1], None)
                     convs.append(conv)
