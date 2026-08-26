@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# Local model/data caches and experiment outputs.
+logs/
+log/
+res/
+results/
+tensorboard_log/
+*.log
+.cache/
+
+# Local machine metadata.
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+message: "If you use PTD in your research, please cite this paper and software."
+type: software
+title: "Progressive Tree Drafting"
+version: 0.1.0
+date-released: 2026-07-12
+doi: 10.48550/arXiv.2607.10661
+url: https://arxiv.org/abs/2607.10661
+repository-code: https://github.com/MINE-USTC/PTD
+license: Apache-2.0
+keywords:
+  - speculative decoding
+  - large language models
+  - LLM inference
+  - tree drafting
+  - PyTorch
+authors:
+  - family-names: Gao
+    given-names: Zipeng
+  - family-names: Zheng
+    given-names: Zhi
+  - family-names: Xia
+    given-names: Qingrong
+  - family-names: Lin
+    given-names: Junda
+  - family-names: Zhao
+    given-names: Ziwei
+  - family-names: Xu
+    given-names: Tong
+  - family-names: Wang
+    given-names: Zhefeng
+  - family-names: Chen
+    given-names: Enhong
+preferred-citation:
+  type: article
+  title: "Unlocking Parallelism in Autoregressive Language Models via Speculative Decoding with Progressive Tree Drafting"
+  authors:
+    - family-names: Gao
+      given-names: Zipeng
+    - family-names: Zheng
+      given-names: Zhi
+    - family-names: Xia
+      given-names: Qingrong
+    - family-names: Lin
+      given-names: Junda
+    - family-names: Zhao
+      given-names: Ziwei
+    - family-names: Xu
+      given-names: Tong
+    - family-names: Wang
+      given-names: Zhefeng
+    - family-names: Chen
+      given-names: Enhong
+  year: 2026
+  doi: 10.48550/arXiv.2607.10661
+  url: https://arxiv.org/abs/2607.10661
+  publisher: arXiv

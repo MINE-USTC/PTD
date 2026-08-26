@@ -6,7 +6,6 @@ import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss
 from torch.nn.utils.rnn import pad_sequence
 from transformers.cache_utils import Cache, DynamicCache
-from transformers.modeling_attn_mask_utils import _prepare_4d_attention_mask as _expand_mask
 from transformers.models.llama.modeling_llama import BaseModelOutputWithPast, CausalLMOutputWithPast
 
 from ...inference_profile import InferProfile, ProfileKeys

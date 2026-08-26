@@ -3,7 +3,6 @@ from time import perf_counter
 from typing import List, Optional
 
 import torch.distributed as dist
-from fastchat.data.split_long_conversation import tokenizer
 from torch.nn.utils.rnn import pad_sequence
 from transformers import LogitsProcessorList, DynamicCache
 from transformers.generation import validate_stopping_criteria
@@ -333,7 +332,7 @@ def tree_draft_greedy_search(
                 break
         model_inputs = _prepare_inputs()
 
-        assert return_dict_in_generate == False
+        assert not return_dict_in_generate
 
         with profile.timer(ProfileKeys.UPDATE_GLOBAL_INFO_TIME):
             if is_prefill:

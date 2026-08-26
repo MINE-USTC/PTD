@@ -12,7 +12,12 @@ import json
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from typing import Optional, List, Dict, Any
-from loguru import logger
+try:
+    from loguru import logger
+except ImportError:  # Keep config inspection usable before runtime dependencies are installed.
+    import logging
+
+    logger = logging.getLogger("tree_draft")
 
 
 @dataclass
@@ -80,7 +85,7 @@ class LogConfig:
 @dataclass
 class ModelConfig:
     """Model configuration."""
-    model_path: str = '/root/Llama-2-7b-chat-hf'
+    model_path: Optional[str] = None
     question_file: str = 'data/mt-bench/mt-bench.jsonl'
     corpus_path: Optional[str] = None
 
@@ -237,7 +242,7 @@ class PTDConfig:
         if hasattr(args, 'dist_workers'):
             self.inference.dist_workers = args.dist_workers
 
-        if hasattr(args, 'model_path'):
+        if getattr(args, 'model_path', None):
             self.model.model_path = args.model_path
         if hasattr(args, 'question_file'):
             self.model.question_file = args.question_file
@@ -317,7 +322,7 @@ class PTDConfig:
             f"run_mode-{self.inference.run_mode}-"
             f"sample_number-{self.inference.sample_number}-"
             f"max_new_tokens-{self.inference.max_new_tokens}-"
-            f"temperature-{self.inference.num_gpus_per_model}"
+            f"temperature-{self.inference.temperature}"
         )
 
     def validate(self) -> bool:
@@ -348,11 +353,18 @@ class PTDConfig:
         if self.inference.dtype not in ['float32', 'float64', 'float16', 'bfloat16']:
             errors.append(f"Unsupported dtype: {self.inference.dtype}")
 
-        try:
-            if not Path(self.model.model_path).exists() and not self.model.model_path.startswith('http'):
-                logger.warning(f"Model path may not exist: {self.model.model_path}")
-        except (PermissionError, OSError) as e:
-            logger.debug(f"Cannot access model path {self.model.model_path}: {e}")
+        if not self.model.model_path:
+            errors.append("model_path is required; pass --model-path or set it in a config file")
+        else:
+            try:
+                if (not Path(self.model.model_path).exists()
+                        and not self.model.model_path.startswith(('http://', 'https://'))):
+                    logger.warning(
+                        f"Model path does not exist locally; it will be resolved as a Hub ID: "
+                        f"{self.model.model_path}"
+                    )
+            except (PermissionError, OSError) as e:
+                logger.debug(f"Cannot access model path {self.model.model_path}: {e}")
 
         if errors:
             for error in errors:

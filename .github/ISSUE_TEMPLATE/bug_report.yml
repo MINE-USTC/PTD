@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a reproducible problem with the code or documentation.
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction command
+      description: Include the smallest command and input needed to reproduce the issue.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Python, PyTorch, Transformers, CUDA, GPU, and model revision.
+    validations:
+      required: true
