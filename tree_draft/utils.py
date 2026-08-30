@@ -207,9 +207,9 @@ def polish_dialogue(question, bench_name, turn):
     return qs
 
 
-def sample_and_pad(l, sample_list, c):
+def sample_and_pad(values, sample_list, c):
     _ = random.sample(sample_list, c)
-    return [l[0] + _]
+    return [values[0] + _]
 
 
 def pad_random_words(sentence, pool, c):
@@ -221,10 +221,6 @@ def pad_random_words(sentence, pool, c):
 def load_human_eval(file_path, begin, end):
     all_data = load_dataset(file_path)
     return [all_data['test'][i]['prompt'] for i in range(len(all_data['test']['prompt'][begin:end]))]
-
-
-def load_quac(file_path, begin, end):
-    pass
 
 
 def load_mbpp_eval(file_path, begin, end):
@@ -570,8 +566,6 @@ def start_cache_server(batch_size=1, rest_corpus_path=None, tokenizer_path=None)
         if 'Tree cache server started' in line:
             print(line.strip() + " (PID: {})".format(cacher_server_process.pid))
             break
-
-
 
 
 

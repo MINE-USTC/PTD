@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "progressive-tree-drafting"
+version = "0.1.0"
+description = "Progressive tree drafting for speculative decoding of autoregressive language models"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+dependencies = ["loguru>=0.7"]
+
+[project.urls]
+Homepage = "https://github.com/MINE-USTC/PTD"
+Repository = "https://github.com/MINE-USTC/PTD"
+Paper = "https://arxiv.org/abs/2607.10661"
+Issues = "https://github.com/MINE-USTC/PTD/issues"
+
+[project.optional-dependencies]
+runtime = [
+    "torch>=2.0",
+    "transformers==4.54.0",
+    "accelerate>=0.26",
+    "datasets>=2.14",
+    "fschat>=0.2.36",
+    "psutil>=5.9",
+    "posix_ipc>=1.1",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+    "networkx>=3.0",
+    "tqdm>=4.65",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+ptd = "main:main"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+[tool.setuptools.packages.find]
+include = ["tree_draft*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+
+# The research implementation contains legacy compatibility code. CI checks
+# syntax and obvious correctness errors without forcing a broad algorithmic
+# refactor in the release hardening pass.
+lint.select = ["E4", "E7", "E9"]

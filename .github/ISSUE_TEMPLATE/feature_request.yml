@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest an improvement or new model/benchmark adapter.
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What use case or limitation does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the expected interface and behavior.
+    validations:
+      required: true

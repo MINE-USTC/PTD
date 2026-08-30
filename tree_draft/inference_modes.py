@@ -3,7 +3,7 @@ import os
 from fastchat.model import get_conversation_template
 
 from .utils import *
-from .inference_profile import ProfileKeys, InferProfile
+from .inference_profile import InferProfile
 from .config import PTDConfig
 
 

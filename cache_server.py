@@ -1,10 +1,8 @@
-import shutil
 import sys
 import copy
 import json
 import os
 import pickle
-import socket
 import struct
 import time
 import signal
@@ -454,22 +452,23 @@ class ContextCacheTree:
         return key
 
     @staticmethod
-    def slice_list(l, lengths, aux_sizes=[]):
+    def slice_list(values, lengths, aux_sizes=None):
+        aux_sizes = [] if aux_sizes is None else aux_sizes
         res = []
         p_size = sum(aux_sizes)
         for i in range(len(lengths)):
             if i == 0:
                 t = []
                 for j, aux_s in enumerate(aux_sizes):
-                    t.append(l[sum(aux_sizes[:j + 1]) - 1])
+                    t.append(values[sum(aux_sizes[:j + 1]) - 1])
                 res.append(t)
 
             else:
-                res.append(l[p_size + sum(lengths[1:i]):p_size + sum(lengths[1:i + 1])])
+                res.append(values[p_size + sum(lengths[1:i]):p_size + sum(lengths[1:i + 1])])
         for i, r in enumerate(res):
             assert len(r) == lengths[i]
 
-        assert res[-1] == l[p_size + sum(lengths[1:-1]):]
+        assert res[-1] == values[p_size + sum(lengths[1:-1]):]
         return res
 
     @staticmethod

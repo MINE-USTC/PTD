@@ -297,7 +297,7 @@ class Node:
             raise RuntimeError(f'The child node: {child_value} does not exist in the parent node: {self.value}.')
 
     def remove_node_and_get_removed_depth(self, child: Union[int, "Node"]):
-        if type(child) != int:
+        if not isinstance(child, int):
             child_value = child.value
         else:
             child_value = child

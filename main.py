@@ -1,15 +1,12 @@
 import argparse
 
-import tree_draft
-from tree_draft.config import PTDConfig
-from tree_draft.inference_modes import greedy_decoding, base_tree_draft, ini_model
 
-if __name__ == "__main__":
+def build_parser():
+    """Build the CLI parser without importing GPU inference dependencies."""
     parser = argparse.ArgumentParser(description="Progressive Tree Drafting for Speculative Decoding")
     # model and data
-    parser.add_argument("--model-path", type=str,
-                        default='/root/Llama-2-7b-chat-hf',
-                        help="The path to the weights. This can be a local folder or a Hugging Face repo ID.")
+    parser.add_argument("--model-path", type=str, default=None,
+                        help="Local model directory or Hugging Face model ID (required).")
     parser.add_argument('--question-file', type=str,
                         default="data/mt-bench/mt-bench.jsonl",
                         help="The path to the question file.")
@@ -46,7 +43,16 @@ if __name__ == "__main__":
     parser.add_argument('--temperature', type=float, default=0.0)
     parser.add_argument("--batch-size", type=int, default=1, )
     parser.add_argument('--corpus-path', type=str, default=None)
-    args = parser.parse_args()
+    return parser
+
+
+def main():
+    args = build_parser().parse_args()
+
+    # Keep --help usable without importing torch/Transformers/FastChat.
+    import tree_draft
+    from tree_draft.config import PTDConfig
+    from tree_draft.inference_modes import greedy_decoding, base_tree_draft, ini_model
 
     # Build config (priority: env > CLI > config file > defaults)
     config = PTDConfig.create_from_args(args, config_file=args.config_file)
@@ -74,3 +80,7 @@ if __name__ == "__main__":
         base_tree_draft(args, model, config)
     else:
         raise NotImplementedError(f"Unsupported run_mode: {config.inference.run_mode}")
+
+
+if __name__ == "__main__":
+    main()

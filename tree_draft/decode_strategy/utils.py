@@ -1,5 +1,4 @@
 import asyncio
-import os
 import pickle
 import struct
 from multiprocessing import shared_memory

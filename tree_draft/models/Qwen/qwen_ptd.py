@@ -3,9 +3,7 @@ from time import perf_counter
 from typing import List, Optional, Tuple, Union
 
 import torch
-import torch.nn.functional as F
 from loguru import logger
-from torch.nn import CrossEntropyLoss
 from torch.nn.utils.rnn import pad_sequence
 from transformers.cache_utils import Cache, DynamicCache
 from transformers.models.llama.modeling_llama import BaseModelOutputWithPast, CausalLMOutputWithPast
